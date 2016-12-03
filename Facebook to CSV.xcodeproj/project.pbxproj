@@ -1,0 +1,76 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		FA5FD5411DECA9690049B477 /* Facebook to CSV */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Facebook to CSV"; sourceTree = "<group>"; };
+		FA5FD5421DECCB720049B477 /* CocoaWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CocoaWindow.xib; sourceTree = "<group>"; };
+		FAA2ACCC1DF2402600321C23 /* py_cocoa.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = py_cocoa.py; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		FA5FD53A1DECA9340049B477 = {
+			isa = PBXGroup;
+			children = (
+				FA5FD5421DECCB720049B477 /* CocoaWindow.xib */,
+				FAA2ACCC1DF2402600321C23 /* py_cocoa.py */,
+				FA5FD5411DECA9690049B477 /* Facebook to CSV */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		FA5FD53B1DECA9340049B477 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+			};
+			buildConfigurationList = FA5FD53E1DECA9340049B477 /* Build configuration list for PBXProject "Facebook to CSV" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FA5FD53A1DECA9340049B477;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		FA5FD53F1DECA9340049B477 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		FA5FD5401DECA9340049B477 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA5FD53E1DECA9340049B477 /* Build configuration list for PBXProject "Facebook to CSV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA5FD53F1DECA9340049B477 /* Debug */,
+				FA5FD5401DECA9340049B477 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA5FD53B1DECA9340049B477 /* Project object */;
+}
