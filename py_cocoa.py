@@ -15,26 +15,43 @@ class PythonClassForCocoa(NSWindowController):
     def windowDidLoad(self):
         NSWindowController.windowDidLoad(self)
 
-        # Start the counter
-        self.count = 0
-
-    @objc.IBAction
-    def performClick_(self, sender):
-        """
-        panel = NSOpenPanel.openPanel()
-        panel.setCanChooseDirectories_(YES)
-        panel.setAllowsMultipleSelection_(NO)
-        """
-        print('tets')
-
 
 class MWController(NSObject):
     textField = objc.IBOutlet()
     selectBox = objc.IBOutlet()
-    appId = objc.IBOutlet()
-    appSecret = objc.IBOutlet()
+    # appId = objc.IBOutlet()
+    # appSecret = objc.IBOutlet()
     messages = objc.IBOutlet()
+    selectDirectoryButton = objc.IBOutlet()
+    directoryTextField = objc.IBOutlet()
+    pathRec = None
     results = []
+
+    def refreshDisplay_(self, line):
+        # print line
+        self.messages.textStorage().mutableString().appendString_(line)
+        """
+        need_scroll = NSMaxY(self.console_view.visibleRect()) >= NSMaxY(self.messages.bounds())
+        if need_scroll:
+            rang = NSMakeRange(len(self.messages.textStorage().mutableString()), 0)
+            self.console_view.scrollRangeToVisible_(rang)
+        """
+
+    @objc.IBAction
+    def chooseDirectory_(self, sender):
+        # we are setting up an NSOpenPanel to select only a directory and then
+        # we will use that directory to choose where to place our index file and
+        # which files we'll read in to make searchable.
+        op = NSOpenPanel.openPanel()
+        op.setTitle_('Choisir un dossier')
+        op.setCanChooseDirectories_(True)
+        op.setCanChooseFiles_(False)
+        op.setResolvesAliases_(True)
+        op.setAllowsMultipleSelection_(False)
+        result = op.runModalForDirectory_file_types_(None, None, None)
+        if result == NSOKButton:
+            self.pathRec = op.filename()
+            self.directoryTextField.setStringValue_(self.pathRec)
 
     @objc.IBAction
     def run_(self, sender):
@@ -42,7 +59,11 @@ class MWController(NSObject):
         name_value = self.textField.stringValue()
         type_value = self.selectBox.indexOfSelectedItem()
 
-        path = ''
+        if self.pathRec is not None:
+            path = self.pathRec + '/'
+        else:
+            path = ''
+        """
         if self.appId.stringValue() == '' or self.appSecret.stringValue() == '':
             app_id = "596940707173430"
             app_secret = "b7222a0e0715416397b8bfae7fb7c595"
@@ -50,29 +71,37 @@ class MWController(NSObject):
         else:
             app_id = self.appId.stringValue()
             app_secret = self.appSecret.stringValue()
+        """
 
+        app_id = "596940707173430"
+        app_secret = "b7222a0e0715416397b8bfae7fb7c595"
         access_marker = 'EAAIe6hbNlDYBAIBbNGu0fflZCZAZBiDRctkS49fzMfaquZCGqjHx665rafO4KuwKycNYSFKKrUSyJtBuYGaQI0' \
                         'ic2GTuflrfalsviVBfXGh5T4W0zBeNvhdXOemDLPDJ7ZANBAaG3P1RXwvFcAobbMGq3cFbhhIQZD'
         access_token = app_id + "|" + app_secret
 
-        if name_value.isdigit() is False:
-            # try get an id
-            data = self.get_id(name_value, access_marker)
-            try:
-                entity_id = data['data'][0].get('id')
+        if len(str(name_value)) != 0:
+            if name_value.isdigit() is False:
+                # try get an id
+                data = self.get_id(name_value, access_marker)
+                try:
+                    entity_id = data['data'][0].get('id')
 
-                if entity_id is None:
-                    self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
-            except IndexError:
-                self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
+                    if entity_id is None:
+                        # self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
+                        self.performSelectorOnMainThread_withObject_waitUntilDone_(u'\nPage or group not found!', None)
+                except IndexError:
+                    # self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
+                    self.performSelectorOnMainThread_withObject_waitUntilDone_(u'\nPage or group not found!', None)
+            else:
+                entity_id = name_value
+
+            if len(str(name_value)) != 0:
+                if type_value is not None and type_value == 1:
+                    thread.start_new_thread(self.scrapeFacebookGroupFeedStatus, (entity_id, access_token, path))
+                elif type_value is not None and type_value == 0:
+                    thread.start_new_thread(self.scrapeFacebookPageFeedStatus, (entity_id, access_token, path))
         else:
-            entity_id = name_value
-
-        if entity_id is not None:
-            if type_value is not None and type_value == 1:
-                thread.start_new_thread(self.scrapeFacebookGroupFeedStatus, (entity_id, access_token, path))
-            elif type_value is not None and type_value == 0:
-                thread.start_new_thread(self.scrapeFacebookPageFeedStatus, (entity_id, access_token, path))
+            self.messages.textStorage().mutableString().appendString_(u'\nPage or group name is required!')
 
         """
         Do parsing below (need move it to separate file)
@@ -92,9 +121,13 @@ class MWController(NSObject):
             except Exception as e:
                 print(e)
                 time.sleep(5)
-                self.messages.textStorage().mutableString().appendString_(
-                    u"\nError for URL %s: %s" % (url, datetime.datetime.now()))
-                self.messages.textStorage().mutableString().appendString_(u"\nRetrying.")
+                # self.messages.textStorage().mutableString().appendString_(
+                #    u"\nError for URL %s: %s" % (url, datetime.datetime.now()))
+                self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                           u"\nError for URL %s: %s" %
+                                                                           (url, datetime.datetime.now()), None)
+                # self.messages.textStorage().mutableString().appendString_(u"\nRetrying.")
+                self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:', u"\nRetrying.", None)
 
         return response.read()
 
@@ -230,8 +263,12 @@ class MWController(NSObject):
             has_next_page = True
             num_processed = 0  # keep a count on how many we've processed
             scrape_starttime = datetime.datetime.now()
-            self.messages.textStorage().mutableString().appendString_(u"\nScraping %s Facebook Page: %s\n" %
-                                                                      (group_id, scrape_starttime))
+
+            # self.messages.textStorage().mutableString().appendString_(u"\nScraping %s Facebook Page: %s\n" %
+            #                                                           (group_id, scrape_starttime))
+            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                       u"\nScraping %s Facebook Page: %s\n" %
+                                                                       (group_id, scrape_starttime), None)
 
             statuses = self.getFacebookGroupFeedData(group_id, access_token, 100)
 
@@ -246,9 +283,13 @@ class MWController(NSObject):
                     # stalling
                     num_processed += 1
                     if num_processed % 100 == 0:
-                        self.messages.textStorage().mutableString().appendString_(
-                            u"\n%s Statuses Processed: %s" % (num_processed,
-                                                              datetime.datetime.now()))
+                        # self.messages.textStorage().mutableString().appendString_(
+                        #    u"\n%s Statuses Processed: %s" % (num_processed,
+                        #                                      datetime.datetime.now()))
+                        self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                                   u"\n%s Statuses Processed: %s" % (
+                                                                                       num_processed,
+                                                                                       datetime.datetime.now()), None)
 
                 # if there is no next page, we're done.
                 if 'paging' in statuses.keys():
@@ -256,9 +297,14 @@ class MWController(NSObject):
                         statuses['paging']['next']))
                 else:
                     has_next_page = False
-            self.messages.textStorage().mutableString().appendString_(u"\nDone!\n%s Statuses Processed in %s" %
-                                                                      (num_processed,
-                                                                       datetime.datetime.now() - scrape_starttime))
+            # self.messages.textStorage().mutableString().appendString_(u"\nDone!\n%s Statuses Processed in %s" %
+            #                                                          (num_processed,
+            #                                                           datetime.datetime.now() - scrape_starttime))
+            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                       u"\nDone!\n%s Statuses Processed in %s" %
+                                                                       (num_processed,
+                                                                        datetime.datetime.now() - scrape_starttime),
+                                                                       None)
 
     def get_id(self, name, token):
         base = "https://graph.facebook.com/v2.8/search?q="
@@ -369,8 +415,11 @@ class MWController(NSObject):
             num_processed = 0  # keep a count on how many we've processed
             scrape_starttime = datetime.datetime.now()
 
-            self.messages.textStorage().mutableString().appendString_(
-                u"\nScraping %s Facebook Page: %s\n" % (page_id, scrape_starttime))
+            # self.messages.textStorage().mutableString().appendString_(
+            #    u"\nScraping %s Facebook Page: %s\n" % (page_id, scrape_starttime))
+            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                       u"\nScraping %s Facebook Page: %s\n" %
+                                                                       (page_id, scrape_starttime), None)
 
             statuses = self.getFacebookPageFeedData(page_id, access_token, 100)
 
@@ -386,9 +435,14 @@ class MWController(NSObject):
                     # stalling
                     num_processed += 1
                     if num_processed % 100 == 0:
-                        self.messages.textStorage().mutableString().appendString_(u"\n%s Statuses Processed: %s" %
-                                                                                  (num_processed,
-                                                                                   datetime.datetime.now()))
+                        # self.messages.textStorage().mutableString().appendString_(u"\n%s Statuses Processed: %s" %
+                        #                                                          (num_processed,
+                        #                                                           datetime.datetime.now()))
+                        self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                                   u"\n%s Statuses Processed: %s" %
+                                                                                   (num_processed,
+                                                                                    datetime.datetime.now()), None)
+
                 # if there is no next page, we're done.
                 if 'paging' in statuses.keys():
                     statuses = json.loads(self.request_until_succeed(
@@ -396,9 +450,12 @@ class MWController(NSObject):
                 else:
                     has_next_page = False
 
-            self.messages.textStorage().mutableString().appendString_(u"\nDone!\n%s Statuses Processed in %s" %
-                                                                      (num_processed,
-                                                                       datetime.datetime.now() - scrape_starttime))
+            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
+                                                                       u"\nDone!\n%s Statuses Processed in %s" %
+                                                                       (num_processed,
+                                                                        datetime.datetime.now() - scrape_starttime),
+                                                                       None)
+            self.setNeedsDisplay_(True)
 
 if __name__ == "__main__":
     app = NSApplication.sharedApplication()

@@ -15,18 +15,6 @@ class PythonClassForCocoa(NSWindowController):
     def windowDidLoad(self):
         NSWindowController.windowDidLoad(self)
 
-        # Start the counter
-        self.count = 0
-
-    @objc.IBAction
-    def performClick_(self, sender):
-        """
-        panel = NSOpenPanel.openPanel()
-        panel.setCanChooseDirectories_(YES)
-        panel.setAllowsMultipleSelection_(NO)
-        """
-        print('tets')
-
 
 class MWController(NSObject):
     textField = objc.IBOutlet()
@@ -63,11 +51,13 @@ class MWController(NSObject):
 
                 if entity_id is None:
                     self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
+                    self.setNeedsDisplay_(True)
             except IndexError:
                 self.messages.textStorage().mutableString().appendString_(u'\nPage or group not found!')
+                self.setNeedsDisplay_(True)
         else:
             entity_id = name_value
-
+        NSLog('EID: ' + entity_id)
         if entity_id is not None:
             if type_value is not None and type_value == 1:
                 thread.start_new_thread(self.scrapeFacebookGroupFeedStatus, (entity_id, access_token, path))
@@ -95,6 +85,7 @@ class MWController(NSObject):
                 self.messages.textStorage().mutableString().appendString_(
                     u"\nError for URL %s: %s" % (url, datetime.datetime.now()))
                 self.messages.textStorage().mutableString().appendString_(u"\nRetrying.")
+                self.setNeedsDisplay_(True)
 
         return response.read()
 
@@ -232,7 +223,7 @@ class MWController(NSObject):
             scrape_starttime = datetime.datetime.now()
             self.messages.textStorage().mutableString().appendString_(u"\nScraping %s Facebook Page: %s\n" %
                                                                       (group_id, scrape_starttime))
-
+            self.messages.textStorage().mutableString().displayIfNeeded_()
             statuses = self.getFacebookGroupFeedData(group_id, access_token, 100)
 
             while has_next_page:
@@ -246,9 +237,10 @@ class MWController(NSObject):
                     # stalling
                     num_processed += 1
                     if num_processed % 100 == 0:
-                        self.messages.textStorage().mutableString().appendString_(
+                        self.messages.mutableString().appendString_(
                             u"\n%s Statuses Processed: %s" % (num_processed,
                                                               datetime.datetime.now()))
+                        self.messages.textStorage().setNeedsDisplay_(True)
 
                 # if there is no next page, we're done.
                 if 'paging' in statuses.keys():
@@ -259,6 +251,7 @@ class MWController(NSObject):
             self.messages.textStorage().mutableString().appendString_(u"\nDone!\n%s Statuses Processed in %s" %
                                                                       (num_processed,
                                                                        datetime.datetime.now() - scrape_starttime))
+            self.setNeedsDisplay_(True)
 
     def get_id(self, name, token):
         base = "https://graph.facebook.com/v2.8/search?q="
@@ -371,6 +364,7 @@ class MWController(NSObject):
 
             self.messages.textStorage().mutableString().appendString_(
                 u"\nScraping %s Facebook Page: %s\n" % (page_id, scrape_starttime))
+            self.messages.setNeedsDisplay_(True)
 
             statuses = self.getFacebookPageFeedData(page_id, access_token, 100)
 
@@ -389,6 +383,8 @@ class MWController(NSObject):
                         self.messages.textStorage().mutableString().appendString_(u"\n%s Statuses Processed: %s" %
                                                                                   (num_processed,
                                                                                    datetime.datetime.now()))
+                        self.messages.setNeedsDisplay_(True)
+
                 # if there is no next page, we're done.
                 if 'paging' in statuses.keys():
                     statuses = json.loads(self.request_until_succeed(
@@ -399,6 +395,7 @@ class MWController(NSObject):
             self.messages.textStorage().mutableString().appendString_(u"\nDone!\n%s Statuses Processed in %s" %
                                                                       (num_processed,
                                                                        datetime.datetime.now() - scrape_starttime))
+            self.setNeedsDisplay_(True)
 
 if __name__ == "__main__":
     app = NSApplication.sharedApplication()

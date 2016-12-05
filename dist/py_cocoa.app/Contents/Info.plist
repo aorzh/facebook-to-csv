@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>py_cocoa</string>
 	<key>CFBundleIconFile</key>
-	<string>py_cocoa</string>
+	<string>csv.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.pythonmac.unspecified.py_cocoa</string>
 	<key>CFBundleInfoDictionaryVersion</key>
