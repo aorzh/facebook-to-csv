@@ -82,7 +82,11 @@ class MWController(NSObject):
         if len(str(name_value)) != 0:
             if name_value.isdigit() is False:
                 # try get an id
-                data = self.get_id(name_value, access_marker)
+                if type_value == 0:
+                    fb_type = 'page'
+                else:
+                    fb_type = 'group'
+                data = self.get_id(name_value, access_marker, fb_type)
                 try:
                     entity_id = data['data'][0].get('id')
 
@@ -306,12 +310,11 @@ class MWController(NSObject):
                                                                         datetime.datetime.now() - scrape_starttime),
                                                                        None)
 
-    def get_id(self, name, token):
+    def get_id(self, name, token, fb_type):
         base = "https://graph.facebook.com/v2.8/search?q="
         node = "%s" % name
-        fb_type = "&type=group"
 
-        url = base + node + fb_type + "&access_token=" + token
+        url = base + node + "&type=" + fb_type + "&access_token=" + token
         return json.loads(self.request_until_succeed(url))
 
     """

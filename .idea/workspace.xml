@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b74e6e4b-c3b5-4b14-898f-55abca48bb22" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/CocoaWindow.nib" afterPath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/CocoaWindow.nib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Facebook to CSV.xcodeproj/project.xcworkspace/xcuserdata/alex.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/Facebook to CSV.xcodeproj/project.xcworkspace/xcuserdata/alex.xcuserdatad/UserInterfaceState.xcuserstate" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/48832744492_facebook_statuses.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/bdist.macosx-10.12-intel/python2.7-semi_standalone/app/site-packages.zip" afterPath="$PROJECT_DIR$/build/bdist.macosx-10.12-intel/python2.7-semi_standalone/app/site-packages.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/lib/python2.7/site-packages.zip" afterPath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/lib/python2.7/site-packages.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CocoaWindow.xib" afterPath="$PROJECT_DIR$/CocoaWindow.xib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Info.plist" afterPath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Info.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/py_cocoa.py" afterPath="$PROJECT_DIR$/py_cocoa.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/py_cocoa.py" afterPath="$PROJECT_DIR$/dist/py_cocoa.app/Contents/Resources/py_cocoa.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Facebook to CSV.iws" />
@@ -56,8 +48,8 @@
       <file leaf-file-name="py_cocoa.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py_cocoa.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40441176">
-              <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.64215684">
+              <caret line="316" column="36" selection-start-line="316" selection-start-column="36" selection-end-line="316" selection-end-column="36" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -479,9 +471,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="728" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3144654" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3144654" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -627,6 +619,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="227" column="26" selection-start-line="227" selection-start-column="26" selection-end-line="227" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -640,8 +633,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/py_cocoa.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40441176">
-          <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.64215684">
+          <caret line="316" column="36" selection-start-line="316" selection-start-column="36" selection-end-line="316" selection-end-column="36" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
