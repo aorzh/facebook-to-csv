@@ -1,0 +1,10 @@
+#!/Users/alex/OSX-TESTS/Facebook-to-CSV/fb27/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'modulegraph==0.12.1','console_scripts','modulegraph'
+__requires__ = 'modulegraph==0.12.1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('modulegraph==0.12.1', 'console_scripts', 'modulegraph')()
+    )

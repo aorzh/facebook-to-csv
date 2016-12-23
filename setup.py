@@ -14,6 +14,9 @@ OPTIONS = {
         'CFBundleVersion': "0.1.1",
         'CFBundleShortVersionString': "0.1.2",
     },
+    'includes': ['urllib2', 'json', 'datetime', 'csv', 'time', 'os', 'thread', 'Foundation', 'Foundation.NSObject',
+                 'Cocoa', 'Carbon', 'twisted', 'six', 'packaging', 'packaging.version', 'packaging.specifiers',
+                 'packaging.requirements', 'PyObjCTools', 'appdirs'],
 }
 
 setup(

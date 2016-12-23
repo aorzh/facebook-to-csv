@@ -6,29 +6,78 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FA84A90F1DFF0866002E33B4 /* dist in Resources */ = {isa = PBXBuildFile; fileRef = FA84A90D1DFF0866002E33B4 /* dist */; };
+		FA84A9101DFF0866002E33B4 /* build in Resources */ = {isa = PBXBuildFile; fileRef = FA84A90E1DFF0866002E33B4 /* build */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		FA5FD5411DECA9690049B477 /* Facebook to CSV */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Facebook to CSV"; sourceTree = "<group>"; };
+		FA18D4DD1E093AE500D0500A /* FBtoCSV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = FBtoCSV.app; path = "/Users/alex/OSX-TESTS/Facebook-to-CSV/build/Debug/FBtoCSV.app"; sourceTree = "<absolute>"; };
 		FA5FD5421DECCB720049B477 /* CocoaWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CocoaWindow.xib; sourceTree = "<group>"; };
+		FA84A90D1DFF0866002E33B4 /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
+		FA84A90E1DFF0866002E33B4 /* build */ = {isa = PBXFileReference; lastKnownFileType = folder; path = build; sourceTree = "<group>"; };
 		FAA2ACCC1DF2402600321C23 /* py_cocoa.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = py_cocoa.py; sourceTree = "<group>"; };
+		FAF9A3ED1DF8292E00DAC8D5 /* app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = app.entitlements; sourceTree = "<group>"; };
+		FAF9A3EE1DF8293D00DAC8D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA84A8F51DFF0780002E33B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		FA5FD53A1DECA9340049B477 = {
 			isa = PBXGroup;
 			children = (
+				FA84A90D1DFF0866002E33B4 /* dist */,
+				FA84A90E1DFF0866002E33B4 /* build */,
+				FAF9A3ED1DF8292E00DAC8D5 /* app.entitlements */,
+				FAF9A3EE1DF8293D00DAC8D5 /* Info.plist */,
 				FA5FD5421DECCB720049B477 /* CocoaWindow.xib */,
 				FAA2ACCC1DF2402600321C23 /* py_cocoa.py */,
-				FA5FD5411DECA9690049B477 /* Facebook to CSV */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA84A8F71DFF0780002E33B4 /* FBtoCSV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA84A90C1DFF0781002E33B4 /* Build configuration list for PBXNativeTarget "FBtoCSV" */;
+			buildPhases = (
+				FA84A8F41DFF0780002E33B4 /* Sources */,
+				FA84A8F51DFF0780002E33B4 /* Frameworks */,
+				FA84A8F61DFF0780002E33B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FBtoCSV;
+			productName = FBtoCSV;
+			productReference = FA18D4DD1E093AE500D0500A /* FBtoCSV.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		FA5FD53B1DECA9340049B477 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0810;
+				TargetAttributes = {
+					FA84A8F71DFF0780002E33B4 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = V4JUTPKVU7;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = FA5FD53E1DECA9340049B477 /* Build configuration list for PBXProject "Facebook to CSV" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -36,14 +85,39 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = FA5FD53A1DECA9340049B477;
+			productRefGroup = FA5FD53A1DECA9340049B477;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				FA84A8F71DFF0780002E33B4 /* FBtoCSV */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA84A8F61DFF0780002E33B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA84A90F1DFF0866002E33B4 /* dist in Resources */,
+				FA84A9101DFF0866002E33B4 /* build in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA84A8F41DFF0780002E33B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		FA5FD53F1DECA9340049B477 /* Debug */ = {
@@ -58,6 +132,107 @@
 			};
 			name = Release;
 		};
+		FA84A90A1DFF0781002E33B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = V4JUTPKVU7;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = FBtoCSV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = orzh.FBtoCSV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FA84A90B1DFF0781002E33B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = V4JUTPKVU7;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = FBtoCSV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = orzh.FBtoCSV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -66,6 +241,15 @@
 			buildConfigurations = (
 				FA5FD53F1DECA9340049B477 /* Debug */,
 				FA5FD5401DECA9340049B477 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA84A90C1DFF0781002E33B4 /* Build configuration list for PBXNativeTarget "FBtoCSV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA84A90A1DFF0781002E33B4 /* Debug */,
+				FA84A90B1DFF0781002E33B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

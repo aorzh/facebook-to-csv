@@ -27,6 +27,7 @@ class MWController(NSObject):
     pathRec = None
     results = []
 
+    @objc.python_method
     def refreshDisplay_(self, line):
         # print line
         self.messages.textStorage().mutableString().appendString_(line)
@@ -111,6 +112,7 @@ class MWController(NSObject):
         Do parsing below (need move it to separate file)
         """
 
+    @objc.python_method
     def request_until_succeed(self, url):
         req = urllib2.Request(str(url))
         success = False
@@ -137,10 +139,11 @@ class MWController(NSObject):
 
         # Needed to write tricky unicode correctly to csv
 
+    @objc.python_method
     def unicode_normalize(self, text):
         return text.translate({0x2018: 0x27, 0x2019: 0x27, 0x201C: 0x22, 0x201D: 0x22,
                                0xa0: 0x20}).encode('utf-8')
-
+    @objc.python_method
     def getFacebookGroupFeedData(self, group_id, access_token, num_statuses):
         # Construct the URL string; see
         # http://stackoverflow.com/a/37239851 for Reactions parameters
@@ -156,6 +159,7 @@ class MWController(NSObject):
         data = json.loads(self.request_until_succeed(url))
         return data
 
+    @objc.python_method
     def getReactionsForStatus(self, status_id, access_token):
         # See http://stackoverflow.com/a/37239851 for Reactions parameters
         # Reactions are only accessable at a single-post endpoint
@@ -177,6 +181,7 @@ class MWController(NSObject):
 
         return data
 
+    @objc.python_method
     def processFacebookGroupFeedStatus(self, status, access_token):
         # The status is now a Python dictionary, so for top-level items,
         # we can simply call the key.
@@ -253,6 +258,7 @@ class MWController(NSObject):
                 num_shares, num_likes, num_loves, num_wows, num_hahas, num_sads,
                 num_angrys, picture, link_name)
 
+    @objc.python_method
     def scrapeFacebookGroupFeedStatus(self, group_id, access_token, path):
 
         csv_file = os.path.join(path + '%s_facebook_statuses.csv' % group_id)
@@ -309,7 +315,7 @@ class MWController(NSObject):
                                                                        (num_processed,
                                                                         datetime.datetime.now() - scrape_starttime),
                                                                        None)
-
+    @objc.python_method
     def get_id(self, name, token, fb_type):
         base = "https://graph.facebook.com/v2.8/search?q="
         node = "%s" % name
@@ -321,6 +327,7 @@ class MWController(NSObject):
     Page
     """
 
+    @objc.python_method
     def getFacebookPageFeedData(self, page_id, access_token, num_statuses):
         # Construct the URL string; see http://stackoverflow.com/a/37239851 for
         # Reactions parameters
@@ -337,6 +344,7 @@ class MWController(NSObject):
 
         return data
 
+    @objc.python_method
     def processFacebookPageFeedStatus(self, status, access_token):
 
         # The status is now a Python dictionary, so for top-level items,
@@ -405,6 +413,7 @@ class MWController(NSObject):
                 status_published, num_reactions, num_comments, num_shares,
                 num_likes, num_loves, num_wows, num_hahas, num_sads, num_angrys)
 
+    @objc.python_method
     def scrapeFacebookPageFeedStatus(self, page_id, access_token, path):
         csv_file = os.path.join(path + '%s_facebook_statuses.csv' % page_id)
         with open(csv_file, 'w') as f:
