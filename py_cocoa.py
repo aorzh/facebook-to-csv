@@ -27,7 +27,7 @@ class MWController(NSObject):
     pathRec = None
     results = []
 
-    @objc.python_method
+    #@objc.python_method
     def refreshDisplay_(self, line):
         # print line
         self.messages.textStorage().mutableString().appendString_(line)
@@ -275,10 +275,10 @@ class MWController(NSObject):
             scrape_starttime = datetime.datetime.now()
 
             # self.messages.textStorage().mutableString().appendString_(u"\nScraping %s Facebook Page: %s\n" %
-            #                                                           (group_id, scrape_starttime))
-            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:',
-                                                                       u"\nScraping %s Facebook Page: %s\n" %
-                                                                       (group_id, scrape_starttime), None)
+            #
+            line = u"\nScraping " + group_id + "Facebook Page: " + str(scrape_starttime)
+            NSLog(line)
+            self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:', line, True)
 
             statuses = self.getFacebookGroupFeedData(group_id, access_token, 100)
 
