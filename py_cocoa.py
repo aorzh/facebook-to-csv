@@ -7,6 +7,7 @@ import csv
 import time
 import os
 import thread
+import ssl
 
 
 class PythonClassForCocoa(NSWindowController):
@@ -27,7 +28,6 @@ class MWController(NSObject):
     pathRec = None
     results = []
 
-    #@objc.python_method
     def refreshDisplay_(self, line):
         # print line
         self.messages.textStorage().mutableString().appendString_(line)
@@ -37,6 +37,9 @@ class MWController(NSObject):
             rang = NSMakeRange(len(self.messages.textStorage().mutableString()), 0)
             self.console_view.scrollRangeToVisible_(rang)
         """
+
+    def refreshDisplayStop_(self, line):
+        self.messages.textStorage().mutableString().appendString_(line)
 
     @objc.IBAction
     def chooseDirectory_(self, sender):
@@ -53,6 +56,11 @@ class MWController(NSObject):
         if result == NSOKButton:
             self.pathRec = op.filename()
             self.directoryTextField.setStringValue_(self.pathRec)
+
+    @objc.IBAction
+    def stop_(self, sender):
+        NSLog('STOP')
+        NSThread.cancel(self)
 
     @objc.IBAction
     def run_(self, sender):
@@ -120,7 +128,9 @@ class MWController(NSObject):
         # NSLog('URL ' + url)
         while success is False:
             try:
-                response = urllib2.urlopen(req)
+                ssl._create_default_https_context = ssl._create_unverified_context
+                context = ssl._create_unverified_context()
+                response = urllib2.urlopen(req, context=context)
 
                 if response.getcode() == 200:
                     success = True
@@ -252,7 +262,8 @@ class MWController(NSObject):
             picture = None
 
         # return a tuple of all processed data
-        post_link = ' https://www.facebook.com/groups/chaseshelloutofthekaroo/permalink/' + status_id.split('_')[1]
+        post_link = 'https://www.facebook.com/groups/' + self.textField.stringValue() + '/permalink/' + \
+                    status_id.split('_')[1]
         return (post_link, status_id, status_author, status_type,
                 status_link, status_published, num_reactions, num_comments,
                 num_shares, num_likes, num_loves, num_wows, num_hahas, num_sads,
@@ -277,7 +288,7 @@ class MWController(NSObject):
             # self.messages.textStorage().mutableString().appendString_(u"\nScraping %s Facebook Page: %s\n" %
             #
             line = u"\nScraping " + group_id + "Facebook Page: " + str(scrape_starttime)
-            NSLog(line)
+
             self.performSelectorOnMainThread_withObject_waitUntilDone_('refreshDisplay:', line, True)
 
             statuses = self.getFacebookGroupFeedData(group_id, access_token, 100)
@@ -334,8 +345,8 @@ class MWController(NSObject):
         base = "https://graph.facebook.com/v2.8"
         node = "/%s/posts" % page_id
         fields = "/?fields=message,link,created_time,type,name,id," + \
-                 "comments.limit(0).summary(true),shares,reactions" + \
-                 ".limit(0).summary(true)"
+                 "comments.limit(0).summary(true),shares,reactions." + \
+                 "limit(0).summary(true),from,picture,story"
         parameters = "&limit=%s&access_token=%s" % (num_statuses, access_token)
         url = base + node + fields + parameters
 
@@ -361,6 +372,7 @@ class MWController(NSObject):
         status_type = status['type']
         status_link = '' if 'link' not in status.keys() else \
             self.unicode_normalize(status['link'])
+        status_author = self.unicode_normalize(status['from']['name'])
 
         # Time needs special care since a) it's in UTC and
         # b) it's not easy to use in statistical programs.
@@ -408,20 +420,27 @@ class MWController(NSObject):
         num_angrys = get_num_total_reactions('angry', reactions)
 
         # Return a tuple of all processed data
+        try:
+            picture = status['picture']
+        except KeyError:
+            picture = None
 
-        return (status_id, status_message, link_name, status_type, status_link,
-                status_published, num_reactions, num_comments, num_shares,
-                num_likes, num_loves, num_wows, num_hahas, num_sads, num_angrys)
+        post_link = 'https://www.facebook.com/' + self.textField.stringValue() + '/posts/' + status_id.split('_')[1]
+        return (post_link, status_id, status_author, status_type,
+                status_link, status_published, num_reactions, num_comments,
+                num_shares, num_likes, num_loves, num_wows, num_hahas, num_sads,
+                num_angrys, picture, link_name)
 
     @objc.python_method
     def scrapeFacebookPageFeedStatus(self, page_id, access_token, path):
         csv_file = os.path.join(path + '%s_facebook_statuses.csv' % page_id)
         with open(csv_file, 'w') as f:
             w = csv.writer(f)
-            w.writerow(["status_id", "status_message", "link_name", "status_type",
-                        "status_link", "status_published", "num_reactions",
-                        "num_comments", "num_shares", "num_likes", "num_loves",
-                        "num_wows", "num_hahas", "num_sads", "num_angrys"])
+            w.writerow(["post_link", "post_id", "status_author",
+                        "status_type", "status_link",
+                        "status_published", "num_reactions", "num_comments",
+                        "num_shares", "num_likes", "num_loves", "num_wows",
+                        "num_hahas", "num_sads", "num_angrys", "picture", "link_name"])
 
             has_next_page = True
             num_processed = 0  # keep a count on how many we've processed
